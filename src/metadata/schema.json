@@ -1,0 +1,223 @@
+{
+    "package": "Envoy",
+    "tagline": "Envoy API",
+    "description": "The easiest way to sign in visitors.Collect guests information, capture their photos and have them sign legal documents\u2014all on the iPad.",
+    "image": "https:\/\/logo.clearbit.com\/envoy.com",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-Envoy-Package",
+    "keywords": [
+        "API",
+        "Guests",
+        "Visitors",
+        "Ipad",
+        "Mobile app"
+    ],
+    "accounts": {
+        "domain": "envoy.com",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "Register on the envoy.com",
+        "After registration, you will receive apiKey in account setting https:\/\/dashboard.envoy.com\/settings\/account"
+    ],
+    "events": [
+        {
+            "name": "webhookEvent",
+            "description": "Create custom workflows that get triggered when a visitor signs in on the iPad.A webhook makes Envoy servers perform an HTTP request to the specified URL whenever a new visitor signs into your office. Be sure to have a valid SSL certificate, all webhooks must use HTTPS.",
+            "payload": {
+                "id": 18829660,
+                "signed_in_time_utc": "2017-10-03 13:30:00",
+                "signed_in_time_local": "2017-10-03 06:30:00",
+                "signed_out_time_utc": "",
+                "signed_out_time_local": "",
+                "your_full_name": "test",
+                "purpose_of_visit": "Visitor",
+                "nda_pdf_url": "",
+                "photo_url": "",
+                "private_notes": "",
+                "Custom Fields": [
+                    {
+                        "Your Full Name": "test"
+                    },
+                    {
+                        "Purpose of visit": "Visitor"
+                    }
+                ],
+                "full_name": "test",
+                "is_delivery": false,
+                "additional_guests": 0
+            },
+            "steps": [
+                "You can see the details on your Settings > Integrations and add a __WEBHOOK_URL__ for your custom integration. "
+            ],
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "String",
+                    "info": "Your API key.",
+                    "required": false
+                }
+            ]
+        }
+    ],
+    "blocks": [
+        {
+            "name": "ImportEmployees",
+            "description": "You can automatically refresh your employee directory as long as you can export to a csv.See more in readme.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "csvFile",
+                    "type": "File",
+                    "info": "When crafting your employee directory csv, it\u2019s very important you strictly follow the format prescribed. It has to be in the exact order of Full Name, Email, and then Phone Number.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/app.envoy.com\/api\/configuration\/employee_list",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "ImportPreRegistrationVisitor",
+            "description": "This version of bulk visitor pre-registration allows you to pre-register guests by uploading a CSV.See more in readme.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "csvFile",
+                    "type": "File",
+                    "info": "Csv file with Pre-Registration Visitors.",
+                    "required": true
+                },
+                {
+                    "name": "notifyInvitee",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Will send email invites to those on the list.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "notify_invitee"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/app.envoy.com\/api\/invites\/upload",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key",
+                            "notify_invitee"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllLocationVisitors",
+            "description": "See all the entries for the master location. By default, it will return all time entries but you can also filter by to and from dates to get a range.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "fromDate",
+                    "type": "DatePicker",
+                    "info": "iso8601 format ie. 2014-03-01.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "from_date"
+                    }
+                },
+                {
+                    "name": "toDate",
+                    "type": "DatePicker",
+                    "info": "iso8601 format ie. 2014-03-01.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "to_date"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/app.envoy.com\/api\/entries.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key",
+                            "to_date",
+                            "from_date"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
