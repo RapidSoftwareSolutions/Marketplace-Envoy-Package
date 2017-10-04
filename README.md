@@ -2,7 +2,7 @@
 
 # Envoy Package
 The easiest way to sign in visitors.Collect guests information, capture their photos and have them sign legal documents—all on the iPad.
-* Domain: [envoy.com](https://envoy.com/****)
+* Domain: [envoy.com](https://envoy.com/)
 * Credentials: apiKey
 
 ## How to get credentials: 
@@ -45,7 +45,7 @@ This version of bulk visitor pre-registration allows you to pre-register guests 
 |--------------|------------|----------
 | apiKey       | credentials| Your API Key.
 | csvFile      | File       | Csv file with Pre-Registration Visitors.
-| notifyInvitee| Select     | Will send email invites to those on the list.
+| notifyInvitee| Select     | Will send email invites to those on the list.The notification function can be enabled in your account settings.
 
 We're working to support a variety of upload and file
 formats in the future.
