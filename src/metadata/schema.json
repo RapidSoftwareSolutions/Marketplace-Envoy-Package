@@ -131,7 +131,7 @@
                         "true",
                         "false"
                     ],
-                    "info": "Will send email invites to those on the list.",
+                    "info": "Will send email invites to those on the list.The notification function can be enabled in your account settings.",
                     "required": false,
                     "vendorSchema": {
                         "name": "notify_invitee"

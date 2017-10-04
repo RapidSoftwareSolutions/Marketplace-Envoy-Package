@@ -2,7 +2,7 @@
 
 # Envoy Package
 The easiest way to sign in visitors.Collect guests information, capture their photos and have them sign legal documents—all on the iPad.
-* Domain: [envoy.com](https://envoy.com/****)
+* Domain: [envoy.com](https://envoy.com/)
 * Credentials: apiKey
 
 ## How to get credentials: 
